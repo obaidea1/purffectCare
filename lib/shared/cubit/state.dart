@@ -25,3 +25,9 @@ class TakePostImageSuccessState extends AppState{}
 class TakePostImageErrorState extends AppState{}
 class UploadPostImageSuccessState extends AppState{}
 class UploadPostImageErrorState extends AppState{}
+class OrderMarkedAsDone extends AppState {}
+
+class OrderUpdateFailed extends AppState {
+  final String errorMessage;
+  OrderUpdateFailed({required this.errorMessage});
+}

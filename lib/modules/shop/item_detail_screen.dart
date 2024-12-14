@@ -18,6 +18,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(widget.itemData['name']),
       ),
@@ -47,7 +48,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                 ),
                 Text('$quantity'),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {
                     setState(() {
                       quantity++;
@@ -56,13 +57,13 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Add item to cart
+                print(widget.itemData['item_id']);
                 addToCart(widget.itemData['item_id'], quantity);
               },
-              child: Text('Add to Cart'),
+              child: const Text('Add to Cart',style: TextStyle(color: Colors.white),),
             ),
           ],
         ),
@@ -70,15 +71,29 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     );
   }
 
-  void addToCart(String itemId, int quantity) async {
+  void addToCart(String? itemId, int quantity) async {
+    if (itemId == null || itemId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Item ID is missing!')),
+      );
+      return;
+    }
+
     var userId = uId;
-    FirebaseFirestore.instance.collection('cart').add({
+    if (userId == null || userId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User ID is missing!')),
+      );
+      return;
+    }
+
+    await FirebaseFirestore.instance.collection('cart').add({
       'user_id': userId,
       'item_id': itemId,
       'quantity': quantity,
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Item added to cart!')),
+      const SnackBar(content: Text('Item added to cart!')),
     );
   }
 }

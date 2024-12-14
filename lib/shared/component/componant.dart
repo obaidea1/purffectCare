@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../modules/authentication/AuthenticationCubit/cubit.dart';
 
@@ -87,45 +88,41 @@ Color selectColor(ToastState toastState) {
   }
   return color;
 }
-Widget articleBuilder({
-  required String img,
-  required String title,
-}) => Card(
-  elevation: 5,
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(15),
-  ),
-  clipBehavior: Clip.antiAlias,
-  margin: EdgeInsets.zero, // Remove margin
-  child: Stack(
-    children: [
-      Image.network(
-        img,
-        height: 150,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
-      Positioned(
-        bottom: 0,
-        left: 0,
-        right: 0,
-        child: Container(
-          padding: EdgeInsets.all(8.0),
-          color: Colors.white.withOpacity(0.8), // Optional to enhance readability
-          child: Text(
-            title,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey, // Set to white for better contrast
+Widget articleBuilder({required String img, required String title, required String url}) {
+  return GestureDetector(
+    onTap: () async {
+      if (await canLaunchUrl(Uri.parse(url))) {
+        await launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView);
+      } else {
+        throw 'Could not launch $url';
+      }
+    },
+    child: Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.network(
+              img,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
             ),
-            textAlign: TextAlign.start,
           ),
-        ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              title,
+              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+        ],
       ),
-    ],
-  ),
-);
+    ),
+  );
+}
 
 Widget buildProductCard(String title, String imagePath) {
   return Card(

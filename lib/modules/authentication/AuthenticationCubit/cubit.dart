@@ -56,9 +56,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
                   phone: phone,
                   bio: "Hi there I'm using chatty",
                   coverImage:
-                      "https://img.freepik.com/free-photo/beige-old-stucco-template_1194-6746.jpg?t=st=1724334975~exp=1724338575~hmac=b32f28ae00d71ffebdf7dfa127f4b33935e296fcd28db2aee9e5505409d8ec6e&w=1380",
+                      "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                   image:
-                      "https://img.freepik.com/free-photo/medium-shot-contemplative-man-seaside_23-2150531618.jpg?t=st=1724334551~exp=1724338151~hmac=b5aa748d490b10f02d331e90b558f4f9973415dfec85e400d70ac74c686ac6f7&w=1380",
+                      "https://plus.unsplash.com/premium_photo-1677545183884-421157b2da02?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                   uId: uId,
                   isEmailVerification: false)
               .toMap(),

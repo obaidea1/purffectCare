@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purffectcare/modules/authentication/signup_screen.dart';
-import '../../layout/home_layout.dart';
+import '../../layout/user_layout.dart';
 import '../../shared/component/componant.dart';
 import '../../shared/network/local/CashHelper.dart';
 import 'AuthenticationCubit/cubit.dart';

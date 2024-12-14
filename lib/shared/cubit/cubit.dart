@@ -6,9 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:purffectcare/modules/appointment/appointment_screen.dart';
+import 'package:purffectcare/modules/appointment/admin_screen/appointment_admin_screen.dart';
+import 'package:purffectcare/modules/appointment/userscren/appointment_screen.dart';
 import 'package:purffectcare/modules/faq/faq_Screen.dart';
-import 'package:purffectcare/modules/shop/shop_screen.dart';
+import 'package:purffectcare/modules/orders/orders_screen.dart';
+import 'package:purffectcare/modules/shop/admin_screens/admin_shop_screen.dart';
+import 'package:purffectcare/modules/shop/user_screens/shop_screen.dart';
 import 'package:purffectcare/shared/cubit/state.dart';
 
 import '../../models/user_model.dart';
@@ -22,18 +25,30 @@ class AppCubit extends Cubit<AppState> {
 
   int currentIndex = 0;
 
-  List<Widget> pages = const [
+  List<Widget> userPages = const [
     HomeScreen(),
     AppointmentScreen(),
-    ShopScreen(),
+    UserShopScreen(),
     FaqScreen(),
   ];
-  List<String> title = [
+  List<String> userTitle = [
     "Home",
     "Appointment",
     "Shop",
     "FAQ",
   ];
+  List<Widget> adminPages = [
+    AdminAppointmentScreen(),
+    AdminShopScreen(),
+    AdminOrdersScreen(),
+  ];
+  List<String> adminTitle = [
+    "Appointment",
+    "Shop",
+    "Orders",
+
+  ];
+
   void changeBottomNavigation(int index, BuildContext context) {
       currentIndex = index;
       emit(ChangeBottomNavigationBarSate());
@@ -80,6 +95,20 @@ class AppCubit extends Cubit<AppState> {
       print(error.toString());
       emit(ChangeCoverImageErrorState());
     });
+  }
+  Future<void> markOrderAsDone(String orderId) async {
+    try {
+      // Update the order status to 'done' in Firestore
+      await FirebaseFirestore.instance.collection('orders').doc(orderId).update({
+        'status': 'done',
+      });
+
+      // Emit a success state to notify the UI
+      emit(OrderMarkedAsDone());
+    } catch (e) {
+      // Handle errors and emit an error state if necessary
+      emit(OrderUpdateFailed(errorMessage: e.toString()));
+    }
   }
 
   String profileImage = '';

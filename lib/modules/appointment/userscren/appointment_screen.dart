@@ -149,7 +149,7 @@ class AppointmentScreen extends StatelessWidget {
                         'status': 'current', // default status as current
                       });
 
-                      Navigator.pop(context);
+                      Navigator.pop( context);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:purffectcare/shared/component/constant.dart';
 import '../../shared/cubit/cubit.dart';
 import '../../shared/cubit/state.dart';
 import '../../shared/network/local/CashHelper.dart';
@@ -45,6 +45,7 @@ class ProfileScreen extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   CashHelper.removeData(key: "uId");
+                  uId='';
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => const LoginScreen()),
@@ -120,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.05),

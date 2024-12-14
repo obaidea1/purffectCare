@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purffectcare/modules/authentication/login_screen.dart';
 import 'package:purffectcare/modules/profile/profile.dart';
+import 'package:purffectcare/modules/shop/cart_screen.dart';
 import 'package:purffectcare/shared/network/local/CashHelper.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -22,7 +23,7 @@ class HomeLayoutScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text(cubit.currentIndex == 0 ?"PurffectCare":cubit.title[cubit.currentIndex]),
+            title: Text(cubit.currentIndex == 0 ?"PurffectCare":cubit.userTitle[cubit.currentIndex]),
             actions: [
               if (cubit.currentIndex != 3)
                 IconButton(
@@ -33,7 +34,9 @@ class HomeLayoutScreen extends StatelessWidget {
                 ),
               if(cubit.currentIndex == 2 )
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> CartScreen()));
+                  },
                   icon: const Icon(Icons.shopping_cart_outlined),
                 ),
               if(cubit.currentIndex == 3)
@@ -74,7 +77,7 @@ class HomeLayoutScreen extends StatelessWidget {
               cubit.changeBottomNavigation(index, context);
             },
           ),
-          body: cubit.pages[cubit.currentIndex],
+          body: cubit.userPages[cubit.currentIndex],
         );
       },
     );
