@@ -58,6 +58,7 @@ class AppCubit extends Cubit<AppState> {
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance.collection("users").doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
+      print(userModel.image);
       emit(GetUserDataSuccessState());
     }).catchError((error) {
       print(error.toString());

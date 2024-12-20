@@ -194,7 +194,6 @@ class AppointmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
-    const String adminUid = 'your-admin-uid-here';
 
     return StreamBuilder(
       stream:  FirebaseFirestore.instance

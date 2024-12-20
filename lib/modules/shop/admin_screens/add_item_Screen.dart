@@ -146,7 +146,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     // Add item data to Firestore
                     await FirebaseFirestore.instance.collection('items').add({
                       'name': nameController.text,
-                      'price': double.parse(priceController.text),
+                      'price': int.parse(priceController.text),
                       'description': descriptionController.text,
                       'image_url': imageUrl,
                       'quantity': 1, // Default quantity
